@@ -30,7 +30,8 @@ public record StaffRequest(
         String address,
 
         @NotBlank(message = "Phone number is required")
-        @Pattern(regexp = "^[0-9+()\\-\\s]{7,30}$", message = "Phone number may only contain digits, spaces, + ( ) and -")
+        @Pattern(regexp = "^(\\+?1[\\s-]?)?(\\(\\d{3}\\)|\\d{3})?[\\s-]?\\d{3}[\\s-]?\\d{4}$",
+                 message = "Phone number must look like 876-555-0123, (876) 555-0123 or +1 876 555 0123")
         String phone,
 
         @Email(message = "Email address is not valid")

@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,6 +38,12 @@ class StaffControllerTest {
     private static final RequestPostProcessor TEACHER = user("teacher").roles("TEACHER");
     private static final RequestPostProcessor ADMIN = user("admin").roles("ADMIN_STAFF");
     private static final RequestPostProcessor BURSAR = user("bursar").roles("BURSAR");
+
+    // The demo seeder adds staff on startup. Clear them (rolled back after each test) so counts are exact.
+    @BeforeEach
+    void clearDemoStaff() {
+        repository.deleteAll();
+    }
 
     private static String staffJson(String first, String last, String email, String position, String className) {
         return """
@@ -156,6 +163,29 @@ class StaffControllerTest {
         mvc.perform(post("/api/staff").with(PRINCIPAL)
                         .contentType(MediaType.APPLICATION_JSON).content(body))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void validPhoneFormatsAreAccepted() throws Exception {
+        for (String phone : new String[] { "876-555-0123", "(876) 555-0123", "+1 876 555 0123", "8765550123", "555-0123" }) {
+            mvc.perform(post("/api/staff").with(PRINCIPAL)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(staffJson("Mary", "Smith", null, "TEACHER", "3A")
+                                    .replace("876-555-0101", phone)))
+                    .andExpect(status().isCreated());
+        }
+    }
+
+    @Test
+    void scrambledPhoneNumbersAreRejected() throws Exception {
+        for (String phone : new String[] { ")3)(  )28-18-3 39 62()+38)0", "(02)7)9)9417+-+8", "abc", "123", "876--555-0123" }) {
+            mvc.perform(post("/api/staff").with(PRINCIPAL)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(staffJson("Mary", "Smith", null, "TEACHER", "3A")
+                                    .replace("876-555-0101", phone)))
+                    .andExpect(status().isBadRequest())
+                    .andExpect(jsonPath("$.fieldErrors.phone").exists());
+        }
     }
 
     @Test
