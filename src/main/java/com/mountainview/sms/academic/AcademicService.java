@@ -28,7 +28,7 @@ public class AcademicService {
     }
 
     /* This is for SR-1 and SR-5 To record a classwork and exam grade and save it. */
-    public GradeResponse addGrades(GradeRequest request) {
+    public GradeResponse addGrade(GradeRequest request) {
         Student student = findStudent(request.studentId());
 
         boolean alreadyRecorded = grades.existsByStudentIdAndSubjectAndTermAndAcademicYear(
