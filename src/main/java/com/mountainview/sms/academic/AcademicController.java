@@ -14,28 +14,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mountainview.sms.academic.AcademicReport;
-import com.mountainview.sms.academic.GradeUpdateRequest;
-import com.mountainview.sms.academic.Term;
 import com.mountainview.sms.security.Access;
 
 import jakarta.validation.Valid;
 
+/*This is for AC-1 and AC-2 */
 
-/* This is for AC-1 and AC-2 */
 @RestController
 @RequestMapping("/api/academics")
 @PreAuthorize(Access.TEACHING)
 public class AcademicController {
+
     private final AcademicService service;
 
-    public AcademicController(AcademicService service){
+    public AcademicController(AcademicService service) {
         this.service = service;
     }
 
     @PostMapping("/grades")
     @ResponseStatus(HttpStatus.CREATED)
-    public GradeResponse addGrade(@Valid @RequestBody GradeRequest request){
+    public GradeResponse addGrade(@Valid @RequestBody GradeRequest request) {
         return service.addGrade(request);
     }
 
@@ -44,11 +42,11 @@ public class AcademicController {
         return service.updateGrade(id, request);
     }
 
-    @GetMapping("/student/{studentId}")
+    @GetMapping("/students/{studentId}")
     public AcademicReport reportForStudent(
-        @PathVariable Long studentId,
-        @RequestParam(required = false) String academicYear,
-        @RequestParam(required = false) Term term) {
+            @PathVariable Long studentId,
+            @RequestParam(required = false) String academicYear,
+            @RequestParam(required = false) Term term) {
         return service.reportForStudent(studentId, academicYear, term);
     }
 
