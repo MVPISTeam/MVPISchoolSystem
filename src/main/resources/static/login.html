@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Staff login · Mountain View Primary and Infant School</title>
+  <link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+  <div class="login-page">
+    <aside class="login-art">
+      <a class="brand" href="/" id="brand">
+        <span class="name">Mountain View<small>Primary and Infant School</small></span>
+      </a>
+      <div>
+        <h1>Welcome back to the staff portal.</h1>
+        <p>Take the register, record grades, print report cards, manage lunch orders and keep the school's books, all in one place.</p>
+      </div>
+      <p class="small" style="margin:0"><a href="/" style="color:#f4bf2e">← Back to the school website</a></p>
+    </aside>
+
+    <main class="login-panel">
+      <div class="login-box">
+        <h2>Staff login</h2>
+        <p class="muted">Use your school username and password.</p>
+
+        <div id="notice"></div>
+
+        <form id="login-form" novalidate>
+          <label class="field">
+            <span>Username</span>
+            <input id="username" name="username" autocomplete="username" required autofocus>
+          </label>
+          <label class="field">
+            <span>Password</span>
+            <div class="password-row">
+              <input id="password" name="password" type="password" autocomplete="current-password" required>
+              <button class="btn btn-ghost btn-sm" type="button" id="toggle-password">Show</button>
+            </div>
+          </label>
+          <button class="btn btn-lg" type="submit" id="submit">Log in</button>
+        </form>
+
+        <section class="demo-accounts" aria-labelledby="demo-title">
+          <h3 id="demo-title">Demo accounts</h3>
+          <p class="small muted">For now the portal uses demo logins. Every one has the password <strong>mvpi1234</strong>. Click one to fill it in.</p>
+          <div class="demo-grid" id="demo-grid"></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script type="module">
+    import { login, session, ROLES, h, svg, CREST } from "/assets/js/core.js";
+
+    const DEMO_PASSWORD = "mvpi1234";
+    const el = (id) => document.getElementById(id);
+
+    document.getElementById("brand").prepend(svg(CREST));
+
+    // Already logged in in this tab: go straight to the portal.
+    if (session.get()) location.replace("/app.html");
+
+    const params = new URLSearchParams(location.search);
+    if (params.has("expired")) {
+      el("notice").append(h("div", { class: "alert alert-gold" }, "Your session ended. Please log in again."));
+    }
+    if (params.has("loggedout")) {
+      el("notice").append(h("div", { class: "alert alert-info" }, "You have been logged out."));
+    }
+
+    const descriptions = {
+      PRINCIPAL: "Everything",
+      VICE_PRINCIPAL: "Everything",
+      ADMIN_STAFF: "Student records",
+      TEACHER: "Register, grades, lunch",
+      BURSAR: "Income and expenses",
+      TUCKSHOP_MANAGER: "Lunch orders",
+    };
+    for (const [role, info] of Object.entries(ROLES)) {
+      el("demo-grid").append(h("button", {
+        type: "button",
+        class: "demo-btn",
+        onclick: () => {
+          el("username").value = info.username;
+          el("password").value = DEMO_PASSWORD;
+          el("submit").focus();
+        },
+      }, h("strong", null, `${info.label} · ${info.username}`), h("span", null, descriptions[role])));
+    }
+
+    el("toggle-password").addEventListener("click", () => {
+      const field = el("password");
+      const show = field.type === "password";
+      field.type = show ? "text" : "password";
+      el("toggle-password").textContent = show ? "Hide" : "Show";
+    });
+
+    el("login-form").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      el("notice").replaceChildren();
+      const username = el("username").value.trim();
+      const password = el("password").value;
+      if (!username || !password) {
+        el("notice").append(h("div", { class: "alert alert-error", role: "alert" }, "Enter your username and password."));
+        return;
+      }
+      el("submit").disabled = true;
+      el("submit").textContent = "Logging in…";
+      try {
+        await login(username, password);
+        location.replace("/app.html");
+      } catch (error) {
+        el("notice").append(h("div", { class: "alert alert-error", role: "alert" }, error.message));
+        el("password").select();
+      } finally {
+        el("submit").disabled = false;
+        el("submit").textContent = "Log in";
+      }
+    });
+  </script>
+</body>
+</html>
