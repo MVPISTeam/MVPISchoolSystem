@@ -28,7 +28,7 @@ public class StudentController {
         this.service = service;
     }
 
-    /** Class list without personal data. Teachers may call this one. */
+    /** Class list without personal data, Teachers have access to this */
     @GetMapping
     @PreAuthorize(Access.CLASS_LIST)
     public List<StudentSummary> list(
@@ -38,7 +38,7 @@ public class StudentController {
         return service.list(name, className, gradeLevel);
     }
 
-    /** The full personal record. SR-3: authorised roles only. */
+    /** The full personal record*/
     @GetMapping("/{id}")
     @PreAuthorize(Access.STUDENT_RECORDS)
     public StudentDetails get(@PathVariable Long id) {
