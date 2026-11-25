@@ -49,20 +49,19 @@ public class LunchService {
         return found.stream().map(LunchStudent::from).toList();
     }
 
-        /** SR-1: set a student's usual lunch method (canteen, PATH or tuckshop). */
+       
     public LunchStudent setLunchMethod(Long studentId, LunchMethod method) {
         Student student = findStudent(studentId);
         student.setLunchMethod(method);
         return LunchStudent.from(students.save(student));
     }
-     /** SR-2: record a student's lunch for a day. */
+   
     public LunchOrderResponse createOrder(LunchOrderRequest request) {
         LunchOrder order = new LunchOrder();
         apply(request, order);
         return LunchOrderResponse.from(orders.save(order));
     }
 
-    /** SR-4: change an order or its payment. */
     public LunchOrderResponse updateOrder(Long orderId, LunchOrderRequest request) {
         LunchOrder order = orders.findById(orderId)
                 .orElseThrow(() -> new NotFoundException("No lunch order with id " + orderId));
@@ -70,7 +69,6 @@ public class LunchService {
         return LunchOrderResponse.from(orders.save(order));
     }
 
-    /** The orders for one day, optionally for one grade only. */
     @Transactional(readOnly = true)
     public List<LunchOrderResponse> listOrders(LocalDate date, Integer gradeLevel) {
         List<LunchOrder> found = (gradeLevel == null)
@@ -79,7 +77,7 @@ public class LunchService {
         return found.stream().map(LunchOrderResponse::from).toList();
     }
 
-    /** SR-5: order counts and payment totals for one day, for each of the three lunch channels. */
+    
     @Transactional(readOnly = true)
     public DailyLunchReport dailyReport(LocalDate date) {
         List<LunchOrder> dayOrders = orders.findByOrderDateOrderByIdAsc(date);
