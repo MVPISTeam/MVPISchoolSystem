@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Portal - Lunch</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/common.js"></script>
+    <script src="../js/lunch.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>MVPI Staff Portal</h1>
+            <nav>
+                <ul id="nav"></ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="portal container">
+        <p class="user-info" id="user-info"></p>
+        <div id="page-content">
+            <h2>Lunch</h2>
+
+            <fieldset>
+                <legend>Lunch Orders</legend>
+                <label>Date <input type="date" id="order-date"></label>
+                <button type="button" id="load-orders">Show Orders</button>
+                <div id="orders-result"></div>
+                <p id="orders-message" class="message"></p>
+            </fieldset>
+
+            <form id="order-form">
+                <fieldset>
+                    <legend id="form-title">Record an Order</legend>
+                    <label>Student <select id="order-student"></select></label>
+                    <label>Date <input type="date" id="order-form-date"></label>
+                    <label>Method
+                        <select id="order-method">
+                            <option value="">Student's usual method</option>
+                            <option value="CANTEEN">Canteen</option>
+                            <option value="TUCKSHOP">Tuckshop</option>
+                            <option value="PATH">PATH</option>
+                        </select>
+                    </label>
+                    <br>
+                    <label>Item <input type="text" id="order-item" placeholder="e.g. Chicken and rice"></label>
+                    <label>Amount paid <input type="number" id="order-amount" min="0" step="0.01"></label>
+                    <label>Status
+                        <select id="order-status">
+                            <option value="ORDERED">Ordered</option>
+                            <option value="SERVED">Served</option>
+                            <option value="CANCELLED">Cancelled</option>
+                        </select>
+                    </label>
+                    <p>PATH lunches are free, so the amount is saved as $0.</p>
+                    <button type="submit" id="save-button">Save Order</button>
+                    <button type="button" class="grey" id="cancel-button" hidden>Cancel</button>
+                    <p id="form-message" class="message"></p>
+                </fieldset>
+            </form>
+
+            <fieldset>
+                <legend>Students' Lunch Methods</legend>
+                <p>Change the dropdown to change how a student usually gets lunch.</p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr><th>Student</th><th>Class</th><th>Lunch Method</th></tr>
+                        </thead>
+                        <tbody id="method-rows"></tbody>
+                    </table>
+                </div>
+                <p id="method-message" class="message"></p>
+            </fieldset>
+
+            <fieldset>
+                <legend>Daily Lunch Report</legend>
+                <label>Date <input type="date" id="report-date"></label>
+                <button type="button" id="load-report">Show Report</button>
+                <div id="report-result"></div>
+            </fieldset>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Copyright 2026, Mountain View Primary and Infant School</p>
+        </div>
+    </footer>
+</body>
+</html>

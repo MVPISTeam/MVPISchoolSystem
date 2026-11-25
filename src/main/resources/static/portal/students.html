@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Portal - Students</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/common.js"></script>
+    <script src="../js/students.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>MVPI Staff Portal</h1>
+            <nav>
+                <ul id="nav"></ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="portal container">
+        <p class="user-info" id="user-info"></p>
+        <div id="page-content">
+            <h2>Students</h2>
+
+            <label for="search">Search by name:</label>
+            <input type="search" id="search" placeholder="Type a name">
+            <label for="class-filter">Class:</label>
+            <select id="class-filter">
+                <option value="">All classes</option>
+            </select>
+
+            <p id="count"></p>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Grade</th>
+                            <th>Gender</th>
+                            <th>Department</th>
+                            <th class="records-only"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="student-rows"></tbody>
+                </table>
+            </div>
+
+            <div id="details" class="details" hidden></div>
+
+            <!-- Only the Principal, Vice Principal and admin staff see this form -->
+            <form id="student-form" class="records-only">
+                <fieldset>
+                    <legend id="form-title">Register a New Student</legend>
+                    <div class="form-row">
+                        <label>First name <input type="text" id="firstName"></label>
+                        <label>Last name <input type="text" id="lastName"></label>
+                        <label>Gender
+                            <select id="gender">
+                                <option value="FEMALE">Female</option>
+                                <option value="MALE">Male</option>
+                            </select>
+                        </label>
+                        <label>Date of birth <input type="date" id="dateOfBirth"></label>
+                    </div>
+                    <div class="form-row">
+                        <label>Grade
+                            <select id="gradeLevel">
+                                <option value="0">Infant</option>
+                                <option value="1">Grade 1</option>
+                                <option value="2">Grade 2</option>
+                                <option value="3">Grade 3</option>
+                                <option value="4">Grade 4</option>
+                                <option value="5">Grade 5</option>
+                                <option value="6">Grade 6</option>
+                            </select>
+                        </label>
+                        <label>Class (e.g. 1M) <input type="text" id="className"></label>
+                        <label>Department
+                            <select id="division">
+                                <option value="PRIMARY">Primary</option>
+                                <option value="INFANT">Infant</option>
+                            </select>
+                        </label>
+                        <label>Registration date <input type="date" id="registrationDate"></label>
+                    </div>
+                    <div class="form-row">
+                        <label>Address <input type="text" id="address" size="40"></label>
+                        <label>Guardian name <input type="text" id="guardianName"></label>
+                        <label>Guardian phone <input type="text" id="guardianPhone"></label>
+                    </div>
+                    <div class="form-row">
+                        <label>Health notes <textarea id="healthInfo" rows="2" cols="40"></textarea></label>
+                        <label><input type="checkbox" id="immunizationUpToDate"> Immunizations up to date</label>
+                    </div>
+                    <button type="submit" id="save-button">Register Student</button>
+                    <button type="button" class="grey" id="cancel-button" hidden>Cancel</button>
+                    <p id="form-message" class="message"></p>
+                </fieldset>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Copyright 2026, Mountain View Primary and Infant School</p>
+        </div>
+    </footer>
+</body>
+</html>
