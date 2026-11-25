@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Covers STA-TS-1 to STA-TS-4. @Transactional rolls the database back after every test,
+ * Covers STA-TS-1 to STA-TS-10. @Transactional rolls the database back after every test,
  * so the tests never leave data behind for each other.
  */
 @SpringBootTest
@@ -76,7 +76,7 @@ class StaffControllerTest {
         return Long.parseLong(matcher.group(1));
     }
 
-    // ---- STA-TS-1: add and update ----
+    // ---- STA-TS-1 to STA-TS-5: add, update, validation ----
 
     @Test
     void principalCanAddStaffMember() throws Exception {
@@ -106,6 +106,24 @@ class StaffControllerTest {
         mvc.perform(get("/api/staff/" + id).with(PRINCIPAL))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.position").value("GUIDANCE_COUNSELLOR"));
+    }
+
+    @Test
+    void invalidUpdateIsRejectedAndOriginalValuesRemain() throws Exception {
+        long id = createAs(PRINCIPAL, staffJson("Mary", "Smith", "mary@mvpi.edu.jm", "TEACHER", "3A"));
+
+        String bad = staffJson("Mary", "Smith", "mary@mvpi.edu.jm", "GUIDANCE_COUNSELLOR", "4B")
+                .replace("876-555-0101", "ABC-DEF-GHIJ");
+        mvc.perform(put("/api/staff/" + id).with(PRINCIPAL)
+                        .contentType(MediaType.APPLICATION_JSON).content(bad))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.fieldErrors.phone").exists());
+
+        mvc.perform(get("/api/staff/" + id).with(PRINCIPAL))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.phone").value("876-555-0101"))
+                .andExpect(jsonPath("$.position").value("TEACHER"))
+                .andExpect(jsonPath("$.className").value("3A"));
     }
 
     @Test
@@ -204,11 +222,17 @@ class StaffControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-    // ---- STA-TS-2: only authorized users ----
+    // ---- STA-TS-6 and STA-TS-7: only authorized users ----
 
     @Test
     void vicePrincipalIsAuthorized() throws Exception {
+        long id = createAs(PRINCIPAL, staffJson("Mary", "Smith", null, "TEACHER", "3A"));
         mvc.perform(get("/api/staff").with(VICE_PRINCIPAL)).andExpect(status().isOk());
+        mvc.perform(get("/api/staff/" + id).with(VICE_PRINCIPAL)).andExpect(status().isOk());
+        mvc.perform(put("/api/staff/" + id).with(VICE_PRINCIPAL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(staffJson("Mary", "Smith", null, "TEACHER", "4B")))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -225,6 +249,18 @@ class StaffControllerTest {
     }
 
     @Test
+    void forbiddenUsersSeeAnErrorAndNoStaffData() throws Exception {
+        long id = createAs(PRINCIPAL, staffJson("Mary", "Smith", "mary@mvpi.edu.jm", "TEACHER", "3A"));
+
+        mvc.perform(get("/api/staff/" + id).with(TEACHER))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.status").value(403))
+                .andExpect(jsonPath("$.message").exists())
+                .andExpect(jsonPath("$.firstName").doesNotExist())
+                .andExpect(jsonPath("$.email").doesNotExist());
+    }
+
+    @Test
     void anonymousUsersAreUnauthorized() throws Exception {
         mvc.perform(get("/api/staff")).andExpect(status().isUnauthorized());
         mvc.perform(post("/api/staff")
@@ -233,7 +269,7 @@ class StaffControllerTest {
                 .andExpect(status().isUnauthorized());
     }
 
-    // ---- STA-TS-3: data is stored ----
+    // ---- STA-TS-3 and STA-TS-8: data is stored ----
 
     @Test
     void addedStaffMemberIsStoredInTheDatabase() throws Exception {
@@ -244,7 +280,7 @@ class StaffControllerTest {
         org.junit.jupiter.api.Assertions.assertEquals("3A", saved.getClassName());
     }
 
-    // ---- STA-TS-4: search and view ----
+    // ---- STA-TS-9 and STA-TS-10: search and view ----
 
     @Test
     void searchFindsStaffByNamePositionClassAndStatus() throws Exception {
@@ -268,7 +304,18 @@ class StaffControllerTest {
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].firstName").value("John"));
 
+    }
+
+    @Test
+    void searchWithNoMatchSaysNoRecordsFound() throws Exception {
+        createAs(PRINCIPAL, staffJson("Mary", "Smith", "mary@mvpi.edu.jm", "TEACHER", "3A"));
+
+        mvc.perform(get("/api/staff").param("name", "Nobody Here").with(PRINCIPAL))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").value("No records found"));
+
         mvc.perform(get("/api/staff").param("status", "FORMER").with(PRINCIPAL))
-                .andExpect(jsonPath("$", hasSize(0)));
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").value("No records found"));
     }
 }
