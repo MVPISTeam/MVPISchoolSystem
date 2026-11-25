@@ -14,7 +14,7 @@ public final class LedgerDtos {
     private LedgerDtos() {
     }
 
-    /** Body for recording or updating income or an expense (SR-2, SR-3). */
+    
     public record LedgerEntryRequest(
             @NotNull EntryType type,
             @NotNull LedgerCategory category,
@@ -44,10 +44,7 @@ public final class LedgerDtos {
     public record CategoryTotal(LedgerCategory category, BigDecimal total) {
     }
 
-    /**
-     * The dashboard (AC-3) and the expenditure report (AC-4) share this shape:
-     * totals for the period, a breakdown by category, and the entries themselves.
-     */
+    
     public record LedgerSummary(
             LocalDate from,
             LocalDate to,

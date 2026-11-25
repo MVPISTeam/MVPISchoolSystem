@@ -15,7 +15,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/** One line in the school's books: money in (INCOME) or money out (EXPENSE). */
+/* A single ledger entry that is entered into the expenditure table*/
+
 @Entity
 @Table(name = "ledger_entries")
 @Getter
