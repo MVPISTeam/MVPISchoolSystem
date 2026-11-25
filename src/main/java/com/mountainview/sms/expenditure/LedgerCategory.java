@@ -1,8 +1,7 @@
 package com.mountainview.sms.expenditure;
 
 /**
- * Where money comes from and where it goes.
- * The first five are the school's income sources; the rest are common expenses.
+ * The types of possible expenses and incomes
  */
 public enum LedgerCategory {
     MINISTRY_GRANT,
