@@ -1,10 +1,7 @@
 package com.mountainview.sms.staff;
-
 import java.util.List;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.mountainview.sms.common.ConflictException;
 import com.mountainview.sms.common.NotFoundException;
 
@@ -48,13 +45,18 @@ public class StaffService {
     }
 
     // Every filter is optional. With none, this returns everyone.
+    // If nothing matches, throw NotFoundException so the user sees "No records found" (STA-AC-6).
     @Transactional(readOnly = true)
     public List<StaffResponse> search(String name, StaffPosition position, String className, EmploymentStatus status) {
-        return staff.search(clean(name), clean(className)).stream()
+        List<StaffResponse> results = staff.search(clean(name), clean(className)).stream()
                 .filter(s -> position == null || s.getPosition() == position)
                 .filter(s -> status == null || s.getEmploymentStatus() == status)
                 .map(StaffResponse::from)
                 .toList();
+        if (results.isEmpty()) {
+            throw new NotFoundException("No records found");
+        }
+        return results;
     }
 
     private void checkDates(StaffRequest request) {

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Class Register</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 760px; margin: 2rem auto; padding: 0 1rem; }
+    fieldset { margin-bottom: 1rem; display: flex; gap: .75rem; flex-wrap: wrap; align-items: end; }
+    label { display: flex; flex-direction: column; font-size: .85rem; gap: .25rem; }
+    input, select, button { font: inherit; padding: .4rem .6rem; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border-bottom: 1px solid #ccc; padding: .5rem; text-align: left; }
+    #message { margin: 1rem 0; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>Class Register</h1>
+
+  <fieldset>
+    <legend>Log in</legend>
+    <label>Username <input id="username" value="teacher"></label>
+    <label>Password <input id="password" type="password"></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Register</legend>
+    <label>Class <input id="className" value="1M"></label>
+    <label>Date <input id="date" type="date"></label>
+    <button id="load" type="button">Load register</button>
+  </fieldset>
+
+  <p id="message"></p>
+
+  <table>
+    <thead><tr><th>Student</th><th>Morning</th><th>Afternoon</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+
+  <p><button id="save" type="button" hidden>Save register</button></p>
+
+  <script>
+    const OPTIONS = ["PRESENT", "ABSENT", "LATE"];
+    const el = (id) => document.getElementById(id);
+    el("date").value = new Date().toLocaleDateString("en-CA");   // today as YYYY-MM-DD
+
+    // HTTP Basic: the username and password go in a header on every request
+    function authHeader() {
+      return "Basic " + btoa(el("username").value + ":" + el("password").value);
+    }
+
+    async function callApi(method, url, body) {
+      const response = await fetch(url, {
+        method: method,
+        headers: { "Authorization": authHeader(), "Content-Type": "application/json" },
+        body: body ? JSON.stringify(body) : undefined
+      });
+      if (response.status === 401) throw new Error("Wrong username or password.");
+      if (response.status === 403) throw new Error("Your role is not allowed to take attendance.");
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || "Something went wrong.");
+      return data;
+    }
+
+    function dropdown(selected) {
+      const select = document.createElement("select");
+      for (const option of OPTIONS) {
+        const item = document.createElement("option");
+        item.value = option;
+        item.textContent = option.charAt(0) + option.slice(1).toLowerCase();
+        item.selected = option === (selected || "PRESENT");
+        select.appendChild(item);
+      }
+      return select;
+    }
+
+    function showRegister(register) {
+      el("rows").replaceChildren();
+      for (const row of register) {
+        const tr = document.createElement("tr");
+        tr.dataset.studentId = row.studentId;
+        const name = document.createElement("td");
+        name.textContent = row.studentName;
+        const morning = document.createElement("td");
+        morning.appendChild(dropdown(row.morning));
+        const afternoon = document.createElement("td");
+        afternoon.appendChild(dropdown(row.afternoon));
+        tr.append(name, morning, afternoon);
+        el("rows").appendChild(tr);
+      }
+      el("save").hidden = register.length === 0;
+    }
+
+    el("load").addEventListener("click", async () => {
+      try {
+        const url = "/api/attendance/classes/" + encodeURIComponent(el("className").value) + "?date=" + el("date").value;
+        showRegister(await callApi("GET", url));
+        el("message").textContent = "Register loaded.";
+      } catch (error) {
+        el("message").textContent = error.message;
+      }
+    });
+
+    el("save").addEventListener("click", async () => {
+      const entries = [...el("rows").children].map((tr) => ({
+        studentId: Number(tr.dataset.studentId),
+        morning: tr.querySelectorAll("select")[0].value,
+        afternoon: tr.querySelectorAll("select")[1].value
+      }));
+      try {
+        const url = "/api/attendance/classes/" + encodeURIComponent(el("className").value);
+        showRegister(await callApi("PUT", url, { date: el("date").value, entries: entries }));
+        el("message").textContent = "Saved " + entries.length + " students.";
+      } catch (error) {
+        el("message").textContent = error.message;
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,4 +1,4 @@
- package com.mountainview.sms.expenditure;
+package com.mountainview.sms.expenditure;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,10 +22,12 @@ import com.mountainview.sms.security.Access;
 
 import jakarta.validation.Valid;
 
-/** AC-1: only Principal, Vice Principal and Bursar reach these endpoints. */
-@RestController
+/* This class handles client requests and responses */
+
+
+@RestController /* Writes to json */
 @RequestMapping("/api/expenditure")
-@PreAuthorize(Access.FINANCE)
+@PreAuthorize(Access.FINANCE) /* Rejects roles that shouldnt be able to access expenditure */
 public class LedgerController {
 
     private final LedgerService service;
@@ -45,7 +47,7 @@ public class LedgerController {
         return service.update(id, request);
     }
 
-    /** GET /api/expenditure/entries?from=2026-11-01&to=2026-11-30&type=EXPENSE&category=UTILITIES */
+    
     @GetMapping("/entries")
     public List<LedgerEntryResponse> list(
             @RequestParam LocalDate from,
@@ -55,13 +57,13 @@ public class LedgerController {
         return service.list(from, to, type, category);
     }
 
-    /** GET /api/expenditure/summary?from=2026-09-01&to=2026-12-18 */
+    
     @GetMapping("/summary")
     public LedgerSummary summary(@RequestParam LocalDate from, @RequestParam LocalDate to) {
         return service.summary(from, to);
     }
 
-    /** GET /api/expenditure/reports/monthly?year=2026&month=11 */
+    
     @GetMapping("/reports/monthly")
     public LedgerSummary monthlyReport(@RequestParam int year, @RequestParam int month) {
         return service.monthlyReport(year, month);
