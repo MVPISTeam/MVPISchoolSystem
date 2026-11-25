@@ -17,6 +17,8 @@ import com.mountainview.sms.expenditure.LedgerDtos.LedgerEntryRequest;
 import com.mountainview.sms.expenditure.LedgerDtos.LedgerEntryResponse;
 import com.mountainview.sms.expenditure.LedgerDtos.LedgerSummary;
 
+/* This class acts on the database */
+
 @Service
 @Transactional
 public class LedgerService {
@@ -27,14 +29,14 @@ public class LedgerService {
         this.entries = entries;
     }
 
-    /** SR-1, SR-2: record income or an expense. */
+    
     public LedgerEntryResponse create(LedgerEntryRequest request) {
         LedgerEntry entry = new LedgerEntry();
         copy(request, entry);
         return LedgerEntryResponse.from(entries.save(entry));
     }
 
-    /** SR-3: update an existing entry. */
+    
     public LedgerEntryResponse update(Long id, LedgerEntryRequest request) {
         LedgerEntry entry = entries.findById(id)
                 .orElseThrow(() -> new NotFoundException("No ledger entry with id " + id));
@@ -42,7 +44,6 @@ public class LedgerService {
         return LedgerEntryResponse.from(entries.save(entry));
     }
 
-    /** SR-4, SR-5: review income and/or expenses over a period. type and category are optional filters. */
     @Transactional(readOnly = true)
     public List<LedgerEntryResponse> list(LocalDate from, LocalDate to, EntryType type, LedgerCategory category) {
         checkPeriod(from, to);
@@ -57,7 +58,7 @@ public class LedgerService {
         return results;
     }
 
-    /** AC-3: the dashboard for any period. */
+    
     @Transactional(readOnly = true)
     public LedgerSummary summary(LocalDate from, LocalDate to) {
         checkPeriod(from, to);
@@ -89,7 +90,6 @@ public class LedgerService {
                 period.stream().map(LedgerEntryResponse::from).toList());
     }
 
-    /** SR-6: the monthly expenditure report is the summary for the first to the last day of that month. */
     @Transactional(readOnly = true)
     public LedgerSummary monthlyReport(int year, int month) {
         if (month < 1 || month > 12) {
