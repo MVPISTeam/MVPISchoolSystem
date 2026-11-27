@@ -3,19 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FBF8F1">
     <title>Mountain View Primary and Infant School</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>Mountain View Primary and Infant School</h1>
-            <nav>
+            <h1>
+                <a href="index.html" class="brand">
+                    <svg viewBox="0 0 40 40" aria-hidden="true">
+                        <circle cx="27" cy="13" r="6" fill="#E8A33D"/>
+                        <path d="M2 34 14 15l7 9 6-7 11 17z" fill="#2A7F53"/>
+                        <path d="M2 34l8-8 6 5 8-7 14 10z" fill="#17402B"/>
+                    </svg>
+                    <span>Mountain View <small>Primary and Infant School</small></span>
+                </a>
+            </h1>
+            <nav aria-label="Main">
                 <ul>
                     <li><a href="#about">About</a></li>
                     <li><a href="#departments">Departments</a></li>
                     <li><a href="#news">News</a></li>
-                    <li><a href="login.html">Staff Login</a></li>
+                    <li><a href="login.html" class="nav-cta">Staff Login</a></li>
                 </ul>
             </nav>
         </div>
@@ -26,47 +36,56 @@
             <div class="container">
                 <h2>Welcome to Mountain View!</h2>
                 <p>We are a primary and infant school that cares about every child. From the Infant department all the way up to Grade 6, we help our students learn and grow.</p>
-                <a href="#about" class="btn">Learn More</a>
+                <div class="hero-actions">
+                    <a href="#about" class="btn">Learn More</a>
+                    <a href="#departments" class="btn secondary">Our Departments</a>
+                </div>
             </div>
+            <svg class="ridges" viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+                <circle class="sun-disc" cx="880" cy="78" r="46" fill="#F2C46D"/>
+                <path class="ridge far" fill="#BFD8C2" d="M0 190 C120 150 200 110 300 120 C400 130 450 70 560 80 C660 90 720 150 820 140 C930 128 990 60 1110 70 C1220 80 1300 140 1440 120 V300 H0Z"/>
+                <path class="ridge mid" fill="#5E9E76" d="M0 230 C140 200 230 170 340 180 C460 192 520 140 640 150 C760 160 820 215 940 205 C1060 195 1130 150 1250 160 C1340 168 1400 190 1440 185 V300 H0Z"/>
+                <path class="ridge near" fill="#17402B" d="M0 268 C160 250 260 232 400 240 C560 250 640 220 780 228 C920 236 1000 262 1140 254 C1260 247 1360 236 1440 240 V300 H0Z"/>
+            </svg>
         </section>
 
-        <section class="about" id="about">
-            <div class="container">
+        <section class="section" id="about">
+            <div class="container split">
                 <h2>About Our School</h2>
-                <div class="cards">
-                    <div class="card">
+                <ul class="ruled">
+                    <li>
                         <h3>Caring Teachers</h3>
                         <p>Our class teachers know their students and work with parents to help every child do their best.</p>
-                    </div>
-                    <div class="card">
+                    </li>
+                    <li>
                         <h3>Strong Subjects</h3>
                         <p>Students take Mathematics, Language Arts, Reading and Physical Education. Older students also do Science and Social Studies.</p>
-                    </div>
-                    <div class="card">
+                    </li>
+                    <li>
                         <h3>School Lunch</h3>
                         <p>Students can get lunch from the canteen or the tuckshop. Students on the PATH programme get lunch for free.</p>
-                    </div>
-                </div>
+                    </li>
+                </ul>
             </div>
         </section>
 
-        <section class="about" id="departments">
+        <section class="section departments" id="departments">
             <div class="container">
                 <h2>Our Departments</h2>
-                <div class="cards">
-                    <div class="card">
+                <ol class="trail">
+                    <li>
                         <h3>Infant Department</h3>
                         <p>For our youngest students. Children learn through play and build their reading, numbers and social skills.</p>
-                    </div>
-                    <div class="card">
+                    </li>
+                    <li>
                         <h3>Primary Department</h3>
                         <p>Grades 1 to 6. Students are tested every term so parents always know how their child is doing.</p>
-                    </div>
-                    <div class="card">
+                    </li>
+                    <li>
                         <h3>After School</h3>
                         <p>After the afternoon register, students can take part in clubs and sports.</p>
-                    </div>
-                </div>
+                    </li>
+                </ol>
             </div>
         </section>
 
@@ -76,25 +95,27 @@
                     <h2>Staff Portal</h2>
                     <p>Staff can log in to take attendance, enter grades, print report cards, record lunch orders and more.</p>
                 </div>
-                <a href="login.html" class="btn">Staff Login</a>
+                <a href="login.html" class="btn sun">Staff Login</a>
             </div>
         </section>
 
-        <section class="news" id="news">
+        <section class="section" id="news">
             <div class="container">
                 <h2>School News</h2>
-                <article>
-                    <h3>Reading Tests</h3>
-                    <p>All classes will do their reading test at the start of the school year so teachers know how to help each student.</p>
-                </article>
-                <article>
-                    <h3>Attendance Matters</h3>
-                    <p>Students who come to school every day learn more. Please tell your child's teacher if they will be absent.</p>
-                </article>
-                <article>
-                    <h3>Report Cards</h3>
-                    <p>Report cards go home at the end of every term. Parents are welcome to come in and meet the class teacher.</p>
-                </article>
+                <div class="news-list">
+                    <article>
+                        <h3>Reading Tests</h3>
+                        <p>All classes will do their reading test at the start of the school year so teachers know how to help each student.</p>
+                    </article>
+                    <article>
+                        <h3>Attendance Matters</h3>
+                        <p>Students who come to school every day learn more. Please tell your child's teacher if they will be absent.</p>
+                    </article>
+                    <article>
+                        <h3>Report Cards</h3>
+                        <p>Report cards go home at the end of every term. Parents are welcome to come in and meet the class teacher.</p>
+                    </article>
+                </div>
             </div>
         </section>
     </main>
