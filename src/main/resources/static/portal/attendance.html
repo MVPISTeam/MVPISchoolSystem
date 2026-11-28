@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Portal - Attendance</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/common.js"></script>
+    <script src="../js/attendance.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>MVPI Staff Portal</h1>
+            <nav>
+                <ul id="nav"></ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="portal container">
+        <p class="user-info" id="user-info"></p>
+        <div id="page-content">
+            <h2>Attendance</h2>
+
+            <fieldset>
+                <legend>Take the Register</legend>
+                <label>Class <select id="register-class"></select></label>
+                <label>Date <input type="date" id="register-date"></label>
+                <button type="button" id="load-register">Load Register</button>
+                <p id="register-status"></p>
+                <div class="table-scroll">
+                    <table id="register-table" hidden>
+                        <thead>
+                            <tr><th>Student</th><th>Morning</th><th>Afternoon</th></tr>
+                        </thead>
+                        <tbody id="register-rows"></tbody>
+                    </table>
+                </div>
+                <button type="button" id="all-present" class="grey" hidden>Mark Everyone Present</button>
+                <button type="button" id="save-register" hidden>Save Register</button>
+                <p id="register-message" class="message"></p>
+            </fieldset>
+
+            <fieldset>
+                <legend>Daily Summary</legend>
+                <label>Date <input type="date" id="daily-date"></label>
+                <button type="button" id="load-daily">Show</button>
+                <div id="daily-result"></div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Monthly Report</legend>
+                <label>Month <input type="month" id="monthly-month"></label>
+                <button type="button" id="load-monthly">Show</button>
+                <div id="monthly-result"></div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Student Attendance History</legend>
+                <label>Student name <input type="search" id="history-name" placeholder="e.g. Brown"></label>
+                <label>From <input type="date" id="history-from"></label>
+                <label>To <input type="date" id="history-to"></label>
+                <button type="button" id="load-history">Search</button>
+                <div id="history-result"></div>
+            </fieldset>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Copyright 2026, Mountain View Primary and Infant School</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Portal - Finance</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/common.js"></script>
+    <script src="../js/finance.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>MVPI Staff Portal</h1>
+            <nav>
+                <ul id="nav"></ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="portal container">
+        <p class="user-info" id="user-info"></p>
+        <div id="page-content">
+            <h2>Income and Expenses</h2>
+
+            <fieldset>
+                <legend>Summary</legend>
+                <label>From <input type="date" id="from"></label>
+                <label>To <input type="date" id="to"></label>
+                <label>Type
+                    <select id="type-filter">
+                        <option value="">All</option>
+                        <option value="INCOME">Income</option>
+                        <option value="EXPENSE">Expense</option>
+                    </select>
+                </label>
+                <button type="button" id="load-summary">Show</button>
+                <div id="summary-result"></div>
+            </fieldset>
+
+            <form id="entry-form">
+                <fieldset>
+                    <legend id="form-title">Add Income or Expense</legend>
+                    <label>Type
+                        <select id="type">
+                            <option value="EXPENSE">Expense</option>
+                            <option value="INCOME">Income</option>
+                        </select>
+                    </label>
+                    <label>Category <select id="category"></select></label>
+                    <label>Amount <input type="number" id="amount" min="0.01" step="0.01"></label>
+                    <label>Date <input type="date" id="entry-date"></label>
+                    <br>
+                    <label>Description <input type="text" id="description" size="30"></label>
+                    <label>Paid to / received from <input type="text" id="payee"></label>
+                    <label>Receipt or cheque # <input type="text" id="reference"></label>
+                    <br>
+                    <button type="submit" id="save-button">Save</button>
+                    <button type="button" class="grey" id="cancel-button" hidden>Cancel</button>
+                    <p id="form-message" class="message"></p>
+                </fieldset>
+            </form>
+
+            <fieldset>
+                <legend>Monthly Report</legend>
+                <label>Month <input type="month" id="month"></label>
+                <button type="button" id="load-monthly">Show</button>
+                <button type="button" class="grey" onclick="window.print()">Print</button>
+                <div id="monthly-result"></div>
+            </fieldset>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Copyright 2026, Mountain View Primary and Infant School</p>
+        </div>
+    </footer>
+</body>
+</html>

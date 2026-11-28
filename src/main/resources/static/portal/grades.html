@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Portal - Grades</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/common.js"></script>
+    <script src="../js/grades.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>MVPI Staff Portal</h1>
+            <nav>
+                <ul id="nav"></ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="portal container">
+        <p class="user-info" id="user-info"></p>
+        <div id="page-content">
+            <h2>Grades</h2>
+
+            <label>Class <select id="class-select"></select></label>
+            <label>Student <select id="student-select"></select></label>
+            <label>Academic year <input type="text" id="year" size="10"></label>
+            <label>Term
+                <select id="term-filter">
+                    <option value="">All terms</option>
+                    <option value="DIAGNOSTIC">Diagnostic</option>
+                    <option value="TERM_1">Term 1</option>
+                    <option value="TERM_2">Term 2</option>
+                    <option value="TERM_3">Term 3</option>
+                </select>
+            </label>
+            <button type="button" id="show-grades">Show Grades</button>
+
+            <div id="grades-result"></div>
+
+            <form id="grade-form" hidden>
+                <fieldset>
+                    <legend id="form-title">Add a Grade</legend>
+                    <label>Subject <select id="subject"></select></label>
+                    <label>Term
+                        <select id="term">
+                            <option value="DIAGNOSTIC">Diagnostic</option>
+                            <option value="TERM_1">Term 1</option>
+                            <option value="TERM_2">Term 2</option>
+                            <option value="TERM_3">Term 3</option>
+                        </select>
+                    </label>
+                    <label>Classwork (0-100) <input type="number" id="classwork" min="0" max="100" step="0.5"></label>
+                    <label>Exam (0-100) <input type="number" id="exam" min="0" max="100" step="0.5"></label>
+                    <br>
+                    <button type="submit" id="save-button">Add Grade</button>
+                    <button type="button" class="grey" id="cancel-button" hidden>Cancel</button>
+                    <p id="form-message" class="message"></p>
+                </fieldset>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Copyright 2026, Mountain View Primary and Infant School</p>
+        </div>
+    </footer>
+</body>
+</html>

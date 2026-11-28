@@ -1,0 +1,1087 @@
+/* Styles for the Mountain View website and staff portal */
+
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Figtree:wght@400..700&display=swap");
+
+:root {
+    /* Colours: warm exercise-book paper, hillside greens, a little sun */
+    --paper: #FBF8F1;
+    --paper-deep: #F3EEE1;
+    --surface: #FFFEFB;
+    --line: #E4DCCB;
+    --line-strong: #CFC5AF;
+    --ink: #1E2A23;
+    --ink-muted: #56604F;
+    --green-900: #123323;
+    --green-800: #17402B;
+    --green-700: #1F6B45;
+    --green-600: #2A7F53;
+    --green-300: #8FC2A0;
+    --green-100: #E3EFE5;
+    --sun: #E8A33D;
+    --sun-soft: #F6DDB0;
+    --blue: #2B4C7E;
+    --error: #B42318;
+    --error-soft: #FDECEA;
+
+    --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+    --font-body: "Figtree", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+    --radius: 14px;
+    --radius-sm: 8px;
+    --shadow: 0 1px 2px rgba(30, 42, 35, 0.06), 0 8px 24px -12px rgba(30, 42, 35, 0.18);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    scrollbar-color: var(--line-strong) var(--paper);
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink);
+    background-color: var(--paper);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+::selection {
+    background-color: var(--sun-soft);
+    color: var(--ink);
+}
+
+.container {
+    max-width: 1120px;
+    width: 100%;
+    margin: 0 auto;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--green-800);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+}
+
+h2 {
+    font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.1rem);
+    margin: 1.75rem 0 0.75rem;
+}
+
+h3 {
+    font-size: 1.25rem;
+    margin: 1.5rem 0 0.5rem;
+}
+
+p {
+    text-wrap: pretty;
+}
+
+a {
+    color: var(--blue);
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+}
+
+a:hover {
+    text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+    outline: 3px solid var(--blue);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Makes sure anything with the hidden attribute stays hidden */
+[hidden] {
+    display: none !important;
+}
+
+.table-scroll {
+    overflow-x: auto;
+    width: 100%;
+}
+
+
+/* The header (public pages) */
+
+header {
+    background-color: rgba(251, 248, 241, 0.92);
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: saturate(1.4) blur(10px);
+    -webkit-backdrop-filter: saturate(1.4) blur(10px);
+}
+
+header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.15rem;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: inherit;
+    text-decoration: none;
+}
+
+.brand svg {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+}
+
+.brand small {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--ink-muted);
+}
+
+header ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+header a {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--ink);
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    transition: background-color 160ms ease, color 160ms ease;
+}
+
+header a:hover {
+    background-color: var(--paper-deep);
+    color: var(--green-700);
+}
+
+header a.current {
+    color: var(--green-800);
+    background-color: var(--green-100);
+    font-weight: 600;
+}
+
+header a.nav-cta {
+    border: 1px solid var(--green-700);
+    color: var(--green-700);
+    margin-left: 0.5rem;
+}
+
+header a.nav-cta:hover {
+    background-color: var(--green-700);
+    color: white;
+}
+
+
+/* The header (staff portal): every portal page has <ul id="nav"> */
+
+header:has(#nav) {
+    background-color: var(--green-800);
+    border-bottom: 0;
+    box-shadow: inset 0 -3px 0 var(--sun);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+header:has(#nav) .container {
+    flex-wrap: wrap;
+    row-gap: 0.6rem;
+    padding-bottom: 1rem;
+}
+
+header:has(#nav) h1 {
+    color: var(--paper);
+    font-size: 1.2rem;
+}
+
+/* The little mountain mark beside "MVPI Staff Portal" */
+header:has(#nav) h1::before {
+    content: "";
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='27' cy='13' r='6' fill='%23E8A33D'/%3E%3Cpath d='M2 34 14 15l7 9 6-7 11 17z' fill='%238FC2A0'/%3E%3Cpath d='M2 34l8-8 6 5 8-7 14 10z' fill='%23FBF8F1'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+header:has(#nav) a {
+    color: rgba(251, 248, 241, 0.82);
+}
+
+header:has(#nav) a:hover {
+    background-color: rgba(251, 248, 241, 0.1);
+    color: var(--paper);
+}
+
+header:has(#nav) a.current {
+    background-color: var(--paper);
+    color: var(--green-800);
+}
+
+header:has(#nav) a#logout {
+    border: 1px solid rgba(251, 248, 241, 0.35);
+    margin-left: 0.25rem;
+}
+
+header:has(#nav) :focus-visible {
+    outline-color: var(--sun);
+}
+
+
+/* Buttons */
+
+.btn, button {
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    background-color: var(--green-700);
+    color: white;
+    border: 1px solid var(--green-700);
+    padding: 0.6rem 1.15rem;
+    border-radius: 999px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    line-height: 1.2;
+    transition: background-color 160ms ease, border-color 160ms ease, transform 120ms var(--ease-out);
+}
+
+.btn:hover, button:hover {
+    background-color: var(--green-800);
+    border-color: var(--green-800);
+}
+
+.btn:active, button:active {
+    transform: scale(0.97);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+button.grey, .btn.secondary {
+    background-color: var(--surface);
+    color: var(--ink);
+    border-color: var(--line-strong);
+}
+
+button.grey:hover, .btn.secondary:hover {
+    background-color: var(--paper-deep);
+    border-color: var(--ink-muted);
+}
+
+button.small {
+    padding: 0.3rem 0.75rem;
+    font-size: 0.82rem;
+}
+
+.btn.sun {
+    background-color: var(--sun);
+    border-color: var(--sun);
+    color: var(--green-900);
+}
+
+.btn.sun:hover {
+    background-color: #F0B45A;
+    border-color: #F0B45A;
+}
+
+
+/* Forms */
+
+input, select, textarea {
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--ink);
+    background-color: white;
+    padding: 0.5rem 0.7rem;
+    min-height: 2.5rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    transition: border-color 140ms ease, box-shadow 140ms ease;
+    accent-color: var(--green-700);
+}
+
+input::placeholder, textarea::placeholder {
+    color: #747C6D;
+}
+
+input:hover, select:hover, textarea:hover {
+    border-color: var(--ink-muted);
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--green-700);
+    box-shadow: 0 0 0 3px rgba(31, 107, 69, 0.2);
+}
+
+input[type="checkbox"] {
+    min-height: 0;
+    width: 1.1rem;
+    height: 1.1rem;
+    padding: 0;
+    margin: 0;
+}
+
+label {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink-muted);
+    margin-right: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+/* A checkbox sits beside its words */
+label:has(> input[type="checkbox"]) {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--ink);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+fieldset {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background-color: var(--surface);
+    box-shadow: var(--shadow);
+    margin: 0 0 1.5rem;
+    padding: 1.4rem 1.5rem 1.5rem;
+    min-width: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 0.75rem 0.85rem;
+}
+
+fieldset label {
+    margin: 0;
+}
+
+/* Anything that is not a field or a button takes the whole row */
+fieldset > :is(legend, p, div, h3, table, .form-row) {
+    flex-basis: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+fieldset > p:empty {
+    display: none;
+}
+
+legend {
+    float: left;
+    width: 100%;
+    padding: 0 0 0.85rem;
+    margin-bottom: 0.25rem;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--green-800);
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 0.75rem 0.85rem;
+}
+
+.form-row label {
+    margin: 0;
+}
+
+
+/* Tables (some are built without a thead, so style th and td directly) */
+
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0.5rem 0 1rem;
+    font-size: 0.93rem;
+}
+
+th, td {
+    padding: 0.6rem 0.85rem;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    vertical-align: middle;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+th {
+    background-color: var(--paper-deep);
+    font-weight: 600;
+    font-size: 0.83rem;
+    color: var(--ink-muted);
+    white-space: nowrap;
+}
+
+tr:last-child > td {
+    border-bottom: 0;
+}
+
+tbody tr:hover > td,
+tr:not(:first-child):hover > td {
+    background-color: #FAF6EC;
+}
+
+td select, td input {
+    min-height: 2.1rem;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.88rem;
+}
+
+
+/* Messages */
+
+.message {
+    font-weight: 600;
+    min-height: 1.2em;
+}
+
+.message:empty {
+    min-height: 0;
+    margin: 0;
+}
+
+.error {
+    color: var(--error);
+}
+
+p.error:not(:empty), td.error {
+    background-color: var(--error-soft);
+    border: 1px solid #F5C2BD;
+    border-radius: var(--radius-sm);
+    padding: 0.55rem 0.8rem;
+    font-weight: 600;
+}
+
+.success {
+    color: var(--green-700);
+}
+
+
+/* Home page */
+
+.hero {
+    position: relative;
+    background: linear-gradient(180deg, var(--paper) 0%, #EEF3E8 70%, #E4EEDF 100%);
+    padding: clamp(3.5rem, 8vw, 6.5rem) 0 0;
+    overflow: hidden;
+}
+
+.hero .container {
+    position: relative;
+    z-index: 1;
+}
+
+.hero h2 {
+    font-size: clamp(2.6rem, 1.4rem + 5vw, 4.75rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    font-weight: 600;
+    font-variation-settings: "opsz" 144;
+    margin: 0 0 1.25rem;
+    max-width: 12ch;
+}
+
+.hero p {
+    font-size: clamp(1.05rem, 1rem + 0.35vw, 1.25rem);
+    max-width: 52ch;
+    color: var(--ink-muted);
+    margin: 0 0 2rem;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.hero-actions .btn {
+    padding: 0.8rem 1.4rem;
+    font-size: 1rem;
+}
+
+.ridges {
+    display: block;
+    width: 100%;
+    height: clamp(160px, 22vw, 300px);
+    margin-top: clamp(-2rem, -2vw, 0rem);
+}
+
+.ridges .ridge,
+.ridges .sun-disc {
+    transform-box: fill-box;
+    animation: rise 1.4s var(--ease-out) both;
+}
+
+.ridges .sun-disc { animation-name: sun-rise; animation-duration: 2s; }
+.ridges .far { animation-delay: 60ms; }
+.ridges .mid { animation-delay: 160ms; }
+.ridges .near { animation-delay: 260ms; }
+
+@keyframes rise {
+    from { transform: translateY(18%); }
+    to { transform: translateY(0); }
+}
+
+@keyframes sun-rise {
+    from { transform: translateY(40%); }
+    to { transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ridges .ridge, .ridges .sun-disc { animation: none; }
+    html { scroll-behavior: auto; }
+}
+
+.section {
+    padding: clamp(3rem, 7vw, 5.5rem) 0;
+}
+
+.section h2 {
+    margin-top: 0;
+}
+
+/* About: heading on the left, a ruled list on the right */
+.split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+    gap: clamp(1.5rem, 5vw, 5rem);
+    align-items: start;
+}
+
+.split > h2 {
+    position: sticky;
+    top: 6rem;
+}
+
+.ruled {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--line-strong);
+}
+
+.ruled li {
+    display: grid;
+    grid-template-columns: 12rem minmax(0, 1fr);
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.ruled h3 {
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+.ruled p {
+    margin: 0;
+    color: var(--ink-muted);
+    max-width: 60ch;
+}
+
+/* Departments: three stops climbing up the hill */
+.departments {
+    background-color: var(--green-100);
+}
+
+.trail {
+    list-style: none;
+    margin: 2.5rem 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: end;
+}
+
+.trail li {
+    position: relative;
+    padding: 1.5rem 1.75rem 0 0;
+    border-top: 2px dashed var(--green-600);
+}
+
+.trail li:nth-child(1) { margin-bottom: 0; }
+.trail li:nth-child(2) { margin-bottom: 3rem; }
+.trail li:nth-child(3) { margin-bottom: 6rem; }
+
+/* The stop marker on the trail */
+.trail li::before {
+    content: "";
+    position: absolute;
+    top: -9px;
+    left: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--paper);
+    border: 3px solid var(--green-700);
+}
+
+.trail li:last-child::before {
+    background-color: var(--sun);
+    border-color: var(--green-800);
+}
+
+.trail h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.45rem;
+}
+
+.trail p {
+    margin: 0;
+    color: var(--ink-muted);
+    max-width: 34ch;
+}
+
+/* Staff portal band */
+.portal-band {
+    background-color: var(--green-800);
+    color: rgba(251, 248, 241, 0.85);
+    padding: clamp(3rem, 6vw, 4.5rem) 0;
+}
+
+.portal-band .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.portal-band h2 {
+    color: var(--paper);
+    margin: 0 0 0.5rem;
+}
+
+.portal-band p {
+    margin: 0;
+    max-width: 56ch;
+}
+
+.portal-band .btn {
+    flex-shrink: 0;
+    padding: 0.8rem 1.4rem;
+    font-size: 1rem;
+}
+
+.portal-band :focus-visible {
+    outline-color: var(--sun);
+}
+
+/* News */
+.news-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.news-list article {
+    border-top: 2px solid var(--green-800);
+    padding-top: 1.1rem;
+}
+
+.news-list h3 {
+    margin: 0 0 0.5rem;
+}
+
+.news-list p {
+    margin: 0;
+    color: var(--ink-muted);
+}
+
+
+/* Login page */
+
+.login-page {
+    display: grid;
+    place-items: center;
+    padding: clamp(2rem, 6vw, 4.5rem) 1.25rem;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 880px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.login-side {
+    background-color: var(--green-800);
+    color: rgba(251, 248, 241, 0.85);
+    padding: 2.25rem 2.25rem 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-side h2 {
+    color: var(--paper);
+    margin: 0 0 0.75rem;
+    font-size: 2rem;
+}
+
+.login-side p {
+    margin: 0;
+    max-width: 32ch;
+}
+
+.login-side svg {
+    display: block;
+    width: calc(100% + 4.5rem);
+    margin: auto -2.25rem 0;
+    padding-top: 2rem;
+}
+
+.login-form {
+    padding: 2.5rem 2.25rem;
+}
+
+.login-form h3 {
+    margin: 0 0 1.5rem;
+    font-size: 1.5rem;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-bottom: 1.1rem;
+}
+
+.field label {
+    margin: 0;
+}
+
+.field input {
+    width: 100%;
+}
+
+.login-form button {
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+}
+
+.login-form .message {
+    margin: 1rem 0 0;
+}
+
+
+/* Staff portal pages */
+
+main.portal {
+    padding-top: 1.5rem;
+    padding-bottom: 3rem;
+}
+
+main.portal > #page-content > h2:first-child,
+main.portal h2#welcome {
+    margin-top: 0.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.user-info {
+    color: var(--ink-muted);
+    font-size: 0.88rem;
+    margin: 0 0 0.75rem;
+}
+
+.user-info:empty {
+    display: none;
+}
+
+/* Students page: the search controls above the table */
+#page-content > label {
+    margin-right: 0.25rem;
+}
+
+#page-content > input, #page-content > select {
+    margin-right: 1rem;
+}
+
+.boxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.box {
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.1rem 1.25rem;
+    color: var(--ink-muted);
+    font-size: 0.9rem;
+}
+
+.box > div:first-child {
+    font-weight: 600;
+    color: var(--ink);
+}
+
+.box .number {
+    font-family: var(--font-display);
+    font-size: 2.3rem;
+    font-weight: 600;
+    line-height: 1.1;
+    margin: 0.35rem 0 0.15rem;
+    color: var(--green-800);
+    font-variant-numeric: tabular-nums;
+}
+
+.details {
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.details h3:first-child {
+    margin-top: 0;
+}
+
+.report-card {
+    background-color: white;
+    border: 1px solid var(--line-strong);
+    outline: 1px solid var(--line);
+    outline-offset: -8px;
+    border-radius: 4px;
+    padding: 2rem 2.25rem;
+    box-shadow: var(--shadow);
+}
+
+.report-card h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+
+/* The footer */
+
+footer {
+    background-color: var(--green-900);
+    color: rgba(251, 248, 241, 0.75);
+    padding: 1.75rem 0;
+    font-size: 0.9rem;
+}
+
+footer .container {
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+}
+
+main.portal + footer, .login-page + footer {
+    margin-top: 0;
+}
+
+
+/* Smaller screens */
+
+@media (max-width: 860px) {
+    .split, .ruled li, .news-list {
+        grid-template-columns: 1fr;
+    }
+
+    .split > h2 {
+        position: static;
+    }
+
+    .ruled li {
+        gap: 0.4rem;
+    }
+
+    .news-list {
+        gap: 1.75rem;
+    }
+
+    .trail {
+        grid-template-columns: 1fr;
+        margin-left: 0.5rem;
+    }
+
+    .trail li,
+    .trail li:nth-child(n) {
+        margin: 0;
+        border-top: 0;
+        border-left: 2px dashed var(--green-600);
+        padding: 0 0 2rem 1.75rem;
+    }
+
+    .trail li:last-child {
+        padding-bottom: 0;
+    }
+
+    .trail li::before {
+        top: 2px;
+        left: -9px;
+    }
+
+    .login-box {
+        grid-template-columns: 1fr;
+    }
+
+    .login-side svg {
+        max-height: 120px;
+    }
+}
+
+@media (max-width: 700px) {
+    header .container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.6rem;
+    }
+
+    header {
+        position: static;
+    }
+
+    header nav {
+        overflow-x: auto;
+        scrollbar-width: none;
+        margin: 0 -1.25rem;
+        padding: 0 1.25rem;
+        width: calc(100% + 2.5rem);
+    }
+
+    header ul {
+        flex-wrap: nowrap;
+    }
+
+    header a {
+        white-space: nowrap;
+    }
+
+    header a.nav-cta {
+        margin-left: 0;
+    }
+
+    .portal-band .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    fieldset {
+        padding: 1.15rem 1rem 1.25rem;
+    }
+
+    fieldset label, .form-row label {
+        flex: 1 1 100%;
+    }
+
+    fieldset input:not([type="checkbox"]), fieldset select, fieldset textarea {
+        width: 100%;
+    }
+
+    input, select, textarea {
+        font-size: 16px; /* stops phones zooming in on the field */
+    }
+
+    .login-form, .login-side {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .login-side svg {
+        width: calc(100% + 3rem);
+        margin-left: -1.5rem;
+        margin-right: -1.5rem;
+    }
+}
+
+/* Hide the menu and buttons when printing a report card */
+
+@media print {
+    header, footer, fieldset, .no-print, .user-info {
+        display: none;
+    }
+
+    body {
+        background: white;
+    }
+
+    .report-card {
+        box-shadow: none;
+        border-color: #999;
+    }
+}

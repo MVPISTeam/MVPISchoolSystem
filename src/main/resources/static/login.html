@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FBF8F1">
+    <title>Staff Login</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/login.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>
+                <a href="index.html" class="brand">
+                    <svg viewBox="0 0 40 40" aria-hidden="true">
+                        <circle cx="27" cy="13" r="6" fill="#E8A33D"/>
+                        <path d="M2 34 14 15l7 9 6-7 11 17z" fill="#2A7F53"/>
+                        <path d="M2 34l8-8 6 5 8-7 14 10z" fill="#17402B"/>
+                    </svg>
+                    <span>Mountain View <small>Primary and Infant School</small></span>
+                </a>
+            </h1>
+            <nav aria-label="Main">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="login-page">
+        <div class="login-box">
+            <div class="login-side">
+                <h2>Staff Portal</h2>
+                <p>Take attendance, enter grades, print report cards and record lunch orders.</p>
+                <svg viewBox="0 0 440 150" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+                    <circle cx="320" cy="62" r="26" fill="#E8A33D"/>
+                    <path fill="#2A7F53" d="M0 110 C60 80 110 50 170 60 C230 70 260 30 320 40 C380 50 410 80 440 74 V150 H0Z"/>
+                    <path fill="#8FC2A0" d="M0 130 C70 112 130 96 200 104 C270 112 320 92 380 98 C410 101 430 108 440 110 V150 H0Z"/>
+                </svg>
+            </div>
+            <form id="login-form" class="login-form">
+                <h3>Log in</h3>
+                <div class="field">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" autocomplete="username" autocapitalize="none" spellcheck="false">
+                </div>
+                <div class="field">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" autocomplete="current-password">
+                </div>
+                <button type="submit">Log In</button>
+                <p id="message" class="message error" role="alert"></p>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Copyright 2026, Mountain View Primary and Infant School</p>
+        </div>
+    </footer>
+</body>
+</html>

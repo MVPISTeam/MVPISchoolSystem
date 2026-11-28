@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Portal - Report Cards</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/common.js"></script>
+    <script src="../js/reportcard.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>MVPI Staff Portal</h1>
+            <nav>
+                <ul id="nav"></ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="portal container">
+        <p class="user-info" id="user-info"></p>
+        <div id="page-content">
+            <h2 class="no-print">Report Cards</h2>
+
+            <fieldset>
+                <legend>Pick a Student</legend>
+                <label>Class <select id="class-select"></select></label>
+                <label>Student <select id="student-select"></select></label>
+                <label>Academic year <input type="text" id="year" size="10"></label>
+                <label>Term
+                    <select id="term">
+                        <option value="TERM_1">Term 1</option>
+                        <option value="TERM_2">Term 2</option>
+                        <option value="TERM_3">Term 3</option>
+                        <option value="DIAGNOSTIC">Diagnostic</option>
+                    </select>
+                </label>
+                <br>
+                <label>Attendance from <input type="date" id="from"></label>
+                <label>to <input type="date" id="to"></label>
+                <button type="button" id="make-card">Make Report Card</button>
+                <p id="message" class="message error"></p>
+            </fieldset>
+
+            <div id="card"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Copyright 2026, Mountain View Primary and Infant School</p>
+        </div>
+    </footer>
+</body>
+</html>

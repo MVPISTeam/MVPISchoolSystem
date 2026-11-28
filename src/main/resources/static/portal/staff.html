@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Portal - Staff</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/common.js"></script>
+    <script src="../js/staff.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>MVPI Staff Portal</h1>
+            <nav>
+                <ul id="nav"></ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="portal container">
+        <p class="user-info" id="user-info"></p>
+        <div id="page-content">
+            <h2>Staff Records</h2>
+
+            <label>Name <input type="search" id="search-name"></label>
+            <label>Position <select id="search-position"></select></label>
+            <label>Status
+                <select id="search-status">
+                    <option value="">Any</option>
+                    <option value="ACTIVE" selected>Active</option>
+                    <option value="ON_LEAVE">On Leave</option>
+                    <option value="FORMER">Former</option>
+                </select>
+            </label>
+            <button type="button" id="search-button">Search</button>
+
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr><th>Name</th><th>Position</th><th>Class</th><th>Phone</th><th>Email</th><th>Status</th><th></th></tr>
+                    </thead>
+                    <tbody id="staff-rows"></tbody>
+                </table>
+            </div>
+
+            <form id="staff-form">
+                <fieldset>
+                    <legend id="form-title">Add a Staff Member</legend>
+                    <label>First name <input type="text" id="firstName"></label>
+                    <label>Last name <input type="text" id="lastName"></label>
+                    <label>Date of birth <input type="date" id="dateOfBirth"></label>
+                    <br>
+                    <label>Position <select id="position"></select></label>
+                    <label>Class (teachers only) <input type="text" id="className" size="6"></label>
+                    <label>Employment
+                        <select id="employmentType">
+                            <option value="FULL_TIME">Full Time</option>
+                            <option value="PART_TIME">Part Time</option>
+                            <option value="CONTRACT">Contract</option>
+                        </select>
+                    </label>
+                    <label>Hire date <input type="date" id="hireDate"></label>
+                    <br>
+                    <label>Phone (876-555-0123) <input type="text" id="phone"></label>
+                    <label>Email <input type="email" id="email"></label>
+                    <label>Address <input type="text" id="address" size="35"></label>
+                    <label id="status-label" hidden>Status
+                        <select id="employmentStatus">
+                            <option value="ACTIVE">Active</option>
+                            <option value="ON_LEAVE">On Leave</option>
+                            <option value="FORMER">Former</option>
+                        </select>
+                    </label>
+                    <br>
+                    <button type="submit" id="save-button">Add Staff Member</button>
+                    <button type="button" class="grey" id="cancel-button" hidden>Cancel</button>
+                    <p id="form-message" class="message"></p>
+                </fieldset>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Copyright 2026, Mountain View Primary and Infant School</p>
+        </div>
+    </footer>
+</body>
+</html>
