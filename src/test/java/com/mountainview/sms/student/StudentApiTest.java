@@ -21,7 +21,7 @@ import com.jayway.jsonpath.JsonPath;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Transactional   // every test's database changes are rolled back afterwards
+@Transactional 
 class StudentApiTest {
 
     private static final String NEW_STUDENT = """
@@ -110,7 +110,7 @@ class StudentApiTest {
     }
 
     @Test
-    @DisplayName("Missing required fields are rejected with 400 and a message per field")
+    @DisplayName("TS-5: missing required fields are rejected with 400 and a message per field")
     void rejectsInvalidStudent() throws Exception {
         mvc.perform(post("/api/students")
                         .with(httpBasic("principal", "mvpi1234"))
@@ -124,7 +124,7 @@ class StudentApiTest {
     }
 
     @Test
-    @DisplayName("Asking for a student who does not exist gives 404")
+    @DisplayName("TS-6: Asking for a student who does not exist gives 404")
     void unknownStudentIs404() throws Exception {
         mvc.perform(get("/api/students/999999").with(httpBasic("principal", "mvpi1234")))
                 .andExpect(status().isNotFound());

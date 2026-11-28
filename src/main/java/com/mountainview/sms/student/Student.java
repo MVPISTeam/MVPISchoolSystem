@@ -54,7 +54,7 @@ public class Student {
     @Column(nullable = false)
     private LunchMethod lunchMethod = LunchMethod.CANTEEN;
 
-    // ---- Personal data (Feature 2). Only Principal, Vice Principal and admin staff may see these. ----
+    //Personal data (Feature 2). Only Principal, Vice Principal and admin staff can edit this
 
     private LocalDate dateOfBirth;
 

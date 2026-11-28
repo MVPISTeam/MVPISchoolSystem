@@ -48,7 +48,7 @@ public class StaffController {
         return service.get(id);
     }
 
-    // e.g. /api/staff?name=smi&position=TEACHER&className=3A&status=ACTIVE  (all filters optional)
+    // e.g. /api/staff?name=smi&position=TEACHER&className=3A&status=ACTIVE  (all filters optional). 404 "No records found" if nothing matches.
     @GetMapping
     public List<StaffResponse> search(
             @RequestParam(required = false) String name,

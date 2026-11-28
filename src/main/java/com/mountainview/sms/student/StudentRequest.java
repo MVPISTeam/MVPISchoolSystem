@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
-/** What the client sends to add or update a student. The annotations are the validation rules. */
+// What the client sends to add or update a student.
 public record StudentRequest(
         @NotBlank String firstName,
         @NotBlank String lastName,
